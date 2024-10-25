@@ -1,0 +1,53 @@
+# Byte-compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pdb
+*.pyo
+*.pyc
+*.egg-info/
+*.egg
+
+# Virtual environment
+env/
+venv/
+.env/
+.venv/
+ENV/
+
+# Environment variables and credentials
+.env
+*.env
+config.json
+
+# Dependency directories
+pip-wheel-metadata/
+
+# IDE and editor files
+.idea/
+.vscode/
+*.swp
+*~
+
+# Unit test / coverage reports
+.coverage
+.tox/
+htmlcov/
+*.cover
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.log
+
+# Packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints
+
+# Development and testing directory
+dev/
