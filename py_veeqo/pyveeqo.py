@@ -9,7 +9,7 @@ from py_veeqo.models import Result
 class PyVeeqo:
     """Rest adapter for the Veeqo api.
     """
-    HOST_URL = "https://api.veeqo.com/"
+    _HOST_URL = "https://api.veeqo.com/"
 
     def __init__(self, api_key: str = ''):
         """Constructor for PyVeeqo
@@ -41,7 +41,7 @@ class PyVeeqo:
         Returns:
             Result: Result object containing status code, message and data.
         """
-        url = self.HOST_URL + endpoint
+        url = self._HOST_URL + endpoint
         headers = {'x-api-key': self._api_key}
         try:
             response = requests.request(
