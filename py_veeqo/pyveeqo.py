@@ -1,9 +1,10 @@
-from typing import Dict
+from typing import Dict, Optional
 from json import JSONDecodeError
 import requests
 import requests.packages
 from py_veeqo.exceptions import PyVeeqoException
 from py_veeqo.models import Result
+from py_veeqo.types import JSONType
 
 
 class PyVeeqo:
@@ -23,8 +24,11 @@ class PyVeeqo:
         self._api_key = api_key
         self._ssl_verify = True
 
-    def _do(self, http_method: str, endpoint: str,
-            params: Dict = None, data: Dict = None) -> Result:
+    def _generic_request_handler(self,
+                                 http_method: str,
+                                 endpoint: str,
+                                 params: Dict = None,
+                                 data: Dict = None) -> Result:
         """Generic request method.
 
         Args:
@@ -80,46 +84,59 @@ class PyVeeqo:
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self._do(
+        return self._generic_request_handler(
             http_method='GET',
             endpoint=endpoint,
             params=params
         )
 
-    def post(self, endpoint: str,
-             params: Dict = None, data: Dict = None) -> Result:
+    def post(self, endpoint: str, data: Dict = None,
+             json: Optional[JSONType] = None) -> Result:
         """HTTP POST request.
 
         Args:
             endpoint (str): API endpoint, specific to user.
             params (Dict, optional): API query params. Defaults to None.
             data (Dict, optional): POST data. Defaults to None.
+            json(JSONType, optional): Json data, alternative to data arg.
+            Defaults to None.
 
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self._do(
+        return self._generic_request_handler(
             http_method='POST',
             endpoint=endpoint,
-            params=params,
-            data=data
+            data=data,
+            json=json
         )
 
-    def delete(self, endpoint: str,
-               params: Dict = None, data: Dict = None) -> Result:
+    def delete(self, endpoint: str) -> Result:
         """HTTP DELETE request.
 
         Args:
             endpoint (str): API endpoint, specific to user.
-            params (Dict, optional): API query params. Defaults to None.
-            data (Dict, optional): DELETE data. Defaults to None.
 
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self._do(
+        return self._generic_request_handler(
             http_method='DELETE',
             endpoint=endpoint,
-            params=params,
+        )
+
+    def put(self, endpoint: str, data: Dict = None) -> Result:
+        """HTTP PUT request.
+
+        Args:
+            endpoint (str): API endpoint, specific to user.
+            data (Dict, optional): Data to update. Defaults to None.
+
+        Returns:
+            Result: Result object containing status code, message and data.
+        """
+        return self._generic_request_handler(
+            http_method='PUT',
+            endpoint=endpoint,
             data=data
         )

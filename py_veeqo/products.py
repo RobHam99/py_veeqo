@@ -1,5 +1,8 @@
-from typing import List, Dict
+from typing import List, Dict, Optional
+from urllib.parse import urljoin
 from py_veeqo.pyveeqo import PyVeeqo
+from py_veeqo.types import JSONType
+from py_veeqo.models import Result
 
 
 class Products(PyVeeqo):
@@ -28,7 +31,7 @@ class Products(PyVeeqo):
         Returns:
             Dict: All information on the specified product.
         """
-        endpoint = "{}/{}".format(self._ENDPOINT_KEY, product_id)
+        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
         return self.get(endpoint=endpoint).data
 
     def get_product_properties(self, product_id: str,
@@ -43,9 +46,119 @@ class Products(PyVeeqo):
         Returns:
             Dict: All information on the property for that product.
         """
-        endpoint = "{}/{}/product_property_specifics/{}".format(
-            self._ENDPOINT_KEY,
-            product_id,
+        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id + "/")
+        endpoint = urljoin(endpoint, property_id)
+        return self.get(endpoint=endpoint).data
+
+    def create_new_product(self, data: Dict = None,
+                           json: Optional[JSONType] = None) -> Result:
+        """Create a new product by passing information in either data or json
+        format.
+        https://developers.veeqo.com/docs#/reference/products/product-collection/create-a-new-product
+
+        Args:
+            data (Dict, optional): Product data in dict format.
+            Defaults to None.
+            json (Optional[JSONType], optional): Product data in json format.
+            Defaults to None.
+
+        Returns:
+            Result: Result object containing status code, message and data.
+        """
+        return self.post(endpoint=self._ENDPOINT_KEY,
+                         data=data,
+                         json=json
+                         )
+
+    def create_new_property(self, data: Dict = None,
+                            json: Optional[JSONType] = None) -> Result:
+        """Create a new property by passing information in either data or json
+        format.
+        https://developers.veeqo.com/docs#/reference/products/create-properties/create-a-new-property
+
+        Args:
+            data (Dict, optional): Product data in dict format.
+            Defaults to None.
+            json (Optional[JSONType], optional): Product data in json format.
+            Defaults to None.
+
+        Returns:
+            Result: Result object containing status code, message and data.
+        """
+        endpoint = "product_properties"
+        return self.post(endpoint=endpoint,
+                         data=data,
+                         json=json
+                         )
+
+    def update_product_detail(self, product_id: int,
+                              data: Dict = None) -> Result:
+        """Update the details of a product, specified by it's unique
+        Veeqo identifier.
+        https://developers.veeqo.com/docs#/reference/products/product/update-product-detail
+
+        Args:
+            product_id (int): Veeqo unique product identifier.
+            data (Dict, optional): Product data in dict format.
+            Defaults to None.
+
+        Returns:
+            Result: Result object containing status code, message and data.
+        """
+        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
+        return self.put(endpoint=endpoint,
+                        data=data
+                        )
+
+    def update_property_detail(self, product_id: int, property_id: int,
+                               data: Dict = None) -> Result:
+        """Update the details of a product, specified by it's unique
+        Veeqo identifier.
+        https://developers.veeqo.com/docs#/reference/products/product-properties/update-property-detail
+
+        Args:
+            product_id (int): Veeqo unique product identifier.
+            property_id (int): Veeqo unique property identifier.
+            data (Dict, optional): Product data in dict format.
+            Defaults to None.
+
+        Returns:
+            Result: Result object containing status code, message and data.
+        """
+        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
+        endpoint = urljoin(
+            endpoint + "/product_property_specifics/",
             property_id
             )
-        return self.get(endpoint=endpoint).data
+        return self.put(endpoint=endpoint, data=data)
+
+    def delete_product(self, product_id: int) -> Result:
+        """Delete a product by specifying it's unique Veeqo identifier.
+        https://developers.veeqo.com/docs#/reference/products/product/delete
+
+        Args:
+            product_id (int): Unique Veeqo product identifier.
+
+        Returns:
+            Result: Result object containing status code, message and data.
+        """
+        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
+        return self.delete(endpoint=endpoint)
+
+    def delete_product_property(self, product_id: int,
+                                property_id: int) -> Result:
+        """Delete a product by specifying it's unique Veeqo identifier.
+
+        Args:
+            product_id (int): Unique Veeqo product identifier.
+            property_id (int): Unique Veeqo property identifier.
+
+        Returns:
+            Result: Result object containing status code, message and data.
+        """
+        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
+        endpoint = urljoin(
+            endpoint + "/product_property_specifics/",
+            property_id
+            )
+        return self.delete(endpoint=endpoint)
