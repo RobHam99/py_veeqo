@@ -14,6 +14,7 @@ class Orders(PyVeeqo):
         """Get a list of all historical orders and their corresponding
         information.
         https://developers.veeqo.com/docs#/reference/orders/order-collection/list-all-orders
+
         Returns:
             List[Dict]: A list of containing a dict for each order.
         """
