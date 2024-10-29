@@ -65,10 +65,11 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self.post(endpoint=self._ENDPOINT_KEY,
-                         data=data,
-                         json=json
-                         )
+        return self.post(
+            endpoint=self._ENDPOINT_KEY, 
+            data=data, 
+            json=json
+            )
 
     def create_new_property(self, data: Dict = None,
                             json: Optional[JSONType] = None) -> Result:
@@ -86,10 +87,11 @@ class Products(PyVeeqo):
             Result: Result object containing status code, message and data.
         """
         endpoint = "product_properties"
-        return self.post(endpoint=endpoint,
-                         data=data,
-                         json=json
-                         )
+        return self.post(
+            endpoint=endpoint,
+            data=data,
+            json=json
+            )
 
     def update_product_detail(self, product_id: int,
                               data: Dict = None) -> Result:
@@ -106,9 +108,10 @@ class Products(PyVeeqo):
             Result: Result object containing status code, message and data.
         """
         endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
-        return self.put(endpoint=endpoint,
-                        data=data
-                        )
+        return self.put(
+            endpoint=endpoint,
+            data=data
+            )
 
     def update_property_detail(self, product_id: int, property_id: int,
                                data: Dict = None) -> Result:

@@ -59,10 +59,11 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self.post(endpoint=self._ENDPOINT_KEY,
-                         data=data,
-                         json=json
-                         )
+        return self.post(
+            endpoint=self._ENDPOINT_KEY,
+            data=data,
+            json=json
+            )
 
     def create_new_order_note(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
@@ -82,10 +83,11 @@ class Orders(PyVeeqo):
         """
         endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
         endpoint = urljoin(endpoint + "/", "notes")
-        return self.post(endpoint=self._ENDPOINT_KEY,
-                         data=data,
-                         json=json
-                         )
+        return self.post(
+            endpoint=self._ENDPOINT_KEY,
+            data=data,
+            json=json
+            )
 
     def create_new_allocation(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
@@ -105,10 +107,11 @@ class Orders(PyVeeqo):
         """
         endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
         endpoint = urljoin(endpoint + "/", "allocations")
-        return self.post(endpoint=self._ENDPOINT_KEY,
-                         data=data,
-                         json=json
-                         )
+        return self.post(
+            endpoint=self._ENDPOINT_KEY,
+            data=data,
+            json=json
+            )
 
     def update_order_detail(self, order_id: int, data: Dict = None) -> Result:
         """Update the details of an order, specified by it's unique
@@ -124,9 +127,10 @@ class Orders(PyVeeqo):
             Result: Result object containing status code, message and data.
         """
         endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        return self.put(endpoint=endpoint,
-                        data=data
-                        )
+        return self.put(
+            endpoint=endpoint,
+            data=data
+            )
 
     def update_allocation_detail(self, order_id: int, allocation_id: int,
                                  data: Dict = None) -> Result:
@@ -144,9 +148,10 @@ class Orders(PyVeeqo):
         """
         endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
         endpoint = urljoin(endpoint + "/allocations/", allocation_id)
-        return self.put(endpoint=endpoint,
-                        data=data
-                        )
+        return self.put(
+            endpoint=endpoint,
+            data=data
+            )
 
     def delete_allocation(self, order_id: int, allocation_id: int) -> Result:
         """Delete a specific order allocation, specified by the unique
