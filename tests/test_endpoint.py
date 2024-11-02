@@ -1,4 +1,5 @@
-from py_veeqo.products import Products
+from py_veeqo.pyveeqo import PyVeeqo
+from py_veeqo.endpoints.products import Products
 
 # Test Code
 api = Products()
@@ -11,6 +12,6 @@ path_params = {
 }
 
 # Generate the URL using the path structure and parameters
-url = Products.build_endpoint(path_structure, path_params=path_params)
+url = PyVeeqo.build_endpoint(path_structure, path_params=path_params)
 
 print(url)  # Outputs: https:
