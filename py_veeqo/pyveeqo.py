@@ -1,4 +1,5 @@
-from typing import Dict, Optional
+from typing import Dict, List, Optional, Callable
+from functools import wraps
 from json import JSONDecodeError
 import requests
 import requests.packages
@@ -23,6 +24,60 @@ class PyVeeqo:
         """
         self._api_key = api_key
         self._ssl_verify = True
+
+    @classmethod
+    def build_endpoint(cls, path_structure: List[str], path_params: Dict[str, str]) -> str:
+        """Builds the endpoint url.
+
+        Args:
+            *segments (str): url segments.
+            **path_params (str): path parameters.
+
+        Returns:
+            str: url endpoint.
+        """
+        endpoint = []
+        for part in path_structure:
+            if part.startswith("{") and part.endswith("}"):
+                key = part[1:-1]
+                print(key)
+                if key in path_params:
+                    print(str(path_params[key]))
+                    endpoint.append(str(path_params[key]).strip("/"))
+                else:
+                    raise ValueError(f"Missing path parameter: {key}")
+            else:
+                endpoint.append(part.strip("/"))
+                    
+        return "/".join(endpoint)
+
+    @classmethod
+    def _endpoint_builder(cls, method: str, path_structure: List[str]) -> Callable:
+        """Decorator to dynamically build endpoint urls."""
+
+        def decorator(func: Callable) -> Callable:
+            
+            @wraps(func)
+            def wrapper(*args, **kwargs):
+
+                path_params = {part[1:-1]: kwargs[part[1:-1]] for part in path_structure if part.startswith('{') and part.endswith('}')}
+
+                endpoint = cls.build_endpoint(path_structure, path_params)
+
+                data = kwargs.get("data")
+                params = kwargs.get("params")
+                json = kwargs.get("json")
+
+                return cls._generic_request_handler(
+                    http_method=method, 
+                    endpoint=endpoint, 
+                    params=params, 
+                    data=data, 
+                    json=json
+                    )
+            
+            return wrapper
+        return decorator
 
     def _generic_request_handler(self,
                                  http_method: str,

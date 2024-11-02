@@ -10,6 +10,7 @@ class Products(PyVeeqo):
     """
     _ENDPOINT_KEY = "products"
 
+
     def get_all_products(self, **kwargs) -> List[Dict]:
         """Get a list of all products in inventory, and their corresponding
         information.
@@ -65,11 +66,6 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self.post(
-            endpoint=self._ENDPOINT_KEY, 
-            data=data, 
-            json=json
-            )
 
     def create_new_property(self, data: Dict = None,
                             json: Optional[JSONType] = None) -> Result:
@@ -107,12 +103,8 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
-        return self.put(
-            endpoint=endpoint,
-            data=data
-            )
-
+        
+    @PyVeeqo._endpoint_builder(method="PUT", path_structure=("products", "{product_id}", "properties", "{property_id}"))
     def update_property_detail(self, product_id: int, property_id: int,
                                data: Dict = None) -> Result:
         """Update the details of a product, specified by it's unique
@@ -128,12 +120,7 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", product_id)
-        endpoint = urljoin(
-            endpoint + "/product_property_specifics/",
-            property_id
-            )
-        return self.put(endpoint=endpoint, data=data)
+
 
     def delete_product(self, product_id: int) -> Result:
         """Delete a product by specifying it's unique Veeqo identifier.
