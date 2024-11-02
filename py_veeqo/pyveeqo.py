@@ -49,20 +49,31 @@ class PyVeeqo:
             else:
                 endpoint.append(part.strip("/"))
                     
-        return "/".join(endpoint)
+        return cls._HOST_URL + "/".join(endpoint)
 
     @classmethod
     def _endpoint_builder(cls, method: str, path_structure: List[str]) -> Callable:
-        """Decorator to dynamically build endpoint urls."""
+        """Decorator to dynamically build api endpoints and call the 
+        main request handler.
+
+        Args:
+            method (str): _description_
+            path_structure (List[str]): _description_
+
+        Returns:
+            Callable: _description_
+        """
 
         def decorator(func: Callable) -> Callable:
             
             @wraps(func)
             def wrapper(*args, **kwargs):
 
+                # Get the path parameters from the function arguments
                 path_params = {part[1:-1]: kwargs[part[1:-1]] for part in path_structure if part.startswith('{') and part.endswith('}')}
 
-                endpoint = cls.build_endpoint(path_structure, path_params)
+                # Construct endpoint url    
+                url = cls.build_endpoint(path_structure, path_params)
 
                 data = kwargs.get("data")
                 params = kwargs.get("params")
@@ -70,7 +81,7 @@ class PyVeeqo:
 
                 return cls._generic_request_handler(
                     http_method=method, 
-                    endpoint=endpoint, 
+                    url=url, 
                     params=params, 
                     data=data, 
                     json=json
@@ -81,14 +92,14 @@ class PyVeeqo:
 
     def _generic_request_handler(self,
                                  http_method: str,
-                                 endpoint: str,
+                                 url: str,
                                  params: Dict = None,
                                  data: Dict = None) -> Result:
         """Generic request method.
 
         Args:
             http_method (str): http method being used e.g. POST or GET.
-            endpoint (str): API endpoint, specific to API being used.
+            url (str): API call url, specific to API being used.
             params (Dict, optional): API query parameters. Defaults to None.
             data (Dict, optional): data if POST. Defaults to None.
 
@@ -100,7 +111,6 @@ class PyVeeqo:
         Returns:
             Result: Result object containing status code, message and data.
         """
-        url = self._HOST_URL + endpoint
         headers = {'x-api-key': self._api_key}
         try:
             response = requests.request(
@@ -128,70 +138,3 @@ class PyVeeqo:
                 data=data_out
                 )
         raise PyVeeqoException(f"{response.status_code}: {response.reason}")
-
-    def get(self, endpoint: str, params: Dict = None) -> Result:
-        """HTTP GET request.
-
-        Args:
-            endpoint (str): API endpoint, specific to user.
-            params (Dict, optional): API query params. Defaults to None.
-
-        Returns:
-            Result: Result object containing status code, message and data.
-        """
-        return self._generic_request_handler(
-            http_method='GET',
-            endpoint=endpoint,
-            params=params
-        )
-
-    def post(self, endpoint: str, data: Dict = None,
-             json: Optional[JSONType] = None) -> Result:
-        """HTTP POST request.
-
-        Args:
-            endpoint (str): API endpoint, specific to user.
-            params (Dict, optional): API query params. Defaults to None.
-            data (Dict, optional): POST data. Defaults to None.
-            json(JSONType, optional): Json data, alternative to data arg.
-            Defaults to None.
-
-        Returns:
-            Result: Result object containing status code, message and data.
-        """
-        return self._generic_request_handler(
-            http_method='POST',
-            endpoint=endpoint,
-            data=data,
-            json=json
-        )
-
-    def delete(self, endpoint: str) -> Result:
-        """HTTP DELETE request.
-
-        Args:
-            endpoint (str): API endpoint, specific to user.
-
-        Returns:
-            Result: Result object containing status code, message and data.
-        """
-        return self._generic_request_handler(
-            http_method='DELETE',
-            endpoint=endpoint,
-        )
-
-    def put(self, endpoint: str, data: Dict = None) -> Result:
-        """HTTP PUT request.
-
-        Args:
-            endpoint (str): API endpoint, specific to user.
-            data (Dict, optional): Data to update. Defaults to None.
-
-        Returns:
-            Result: Result object containing status code, message and data.
-        """
-        return self._generic_request_handler(
-            http_method='PUT',
-            endpoint=endpoint,
-            data=data
-        )

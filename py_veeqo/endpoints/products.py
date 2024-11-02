@@ -11,7 +11,7 @@ class Products(PyVeeqo):
     _ENDPOINT_KEY = "products"
 
     @PyVeeqo._endpoint_builder(method="GET", path_structure=("products",))
-    def get_all_products(self, **kwargs) -> List[Dict]:
+    def get_all_products(self, **kwargs) -> Result:
         """Get a list of all products in inventory, and their corresponding
         information.
         https://developers.veeqo.com/docs#/reference/products/product-collection/list-all-products
@@ -25,7 +25,7 @@ class Products(PyVeeqo):
             path_structure=(
                 "products", 
                 "{product_id}"))
-    def get_product_detail(self, product_id: int) -> Dict:
+    def get_product_detail(self, product_id: int) -> Result:
         """Get product details for a specified product id.
         https://developers.veeqo.com/docs#/reference/products/product/view-product-detail
 
@@ -44,7 +44,7 @@ class Products(PyVeeqo):
                 "{product_id}", 
                 "product_property_specifics"))
     def get_product_properties(self, product_id: int,
-                               property_id: str) -> Dict:
+                               property_id: str) -> Result:
         """Get information about a specific property for a specific product.
         https://developers.veeqo.com/docs#/reference/products/product-properties/view-properties
 

@@ -10,17 +10,22 @@ class Orders(PyVeeqo):
     """
     _ENDPOINT_KEY = "orders"
 
-    def get_all_orders(self, **kwargs) -> List[Dict]:
+    @PyVeeqo._endpoint_builder(method="GET", path_structure=("orders",))
+    def get_all_orders(self, **kwargs) -> Result:
         """Get a list of all historical orders and their corresponding
         information.
         https://developers.veeqo.com/docs#/reference/orders/order-collection/list-all-orders
 
         Returns:
-            List[Dict]: A list of containing a dict for each order.
+            Result: Result object containing status code, message and data.
         """
-        return self.get(endpoint=self._ENDPOINT_KEY, params=kwargs).data
 
-    def get_order_detail(self, order_id: int) -> Dict:
+    @PyVeeqo._endpoint_builder(
+            method="GET",
+            path_structure=(
+                "orders",
+                "{order_id}"))
+    def get_order_detail(self, order_id: int) -> Result:
         """Get order details for a specified order id.
         https://developers.veeqo.com/docs#/reference/orders/order/view-an-order-detail
 
@@ -28,22 +33,30 @@ class Orders(PyVeeqo):
             order_id (str): Unique Veeqo id number for a given order.
 
         Returns:
-            Dict: All information on the specified order.
+            Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        return self.get(endpoint=endpoint).data
 
-    def get_order_returns(self, order_id: int) -> Dict:
+    @PyVeeqo._endpoint_builder(
+            method="GET",
+            path_structure=(
+                "orders",
+                "{order_id}",
+                "returns"))
+    def get_order_returns(self, order_id: int) -> Result:
         """Show returns for a given order.
         https://developers.veeqo.com/docs#/reference/returns/returns/show-returns-on-order
+        
+        Args:
+            order_id (str): Unique Veeqo id number for a given order.
 
         Returns:
-            List[Dict]: A list of containing a dict for each purchase order.
+            Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        endpoint = urljoin(endpoint + "/", "returns")
-        return self.get(endpoint=endpoint).data
 
+    @PyVeeqo._endpoint_builder(
+            method="POST",
+            path_structure=(
+                "orders"))
     def create_new_order(self, data: Dict = None,
                          json: Optional[JSONType] = None) -> Result:
         """Create a new order by passing information in either data or json
@@ -59,12 +72,13 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self.post(
-            endpoint=self._ENDPOINT_KEY,
-            data=data,
-            json=json
-            )
 
+    @PyVeeqo._endpoint_builder(
+            method="POST",
+            path_structure=(
+                "orders",
+                "{order_id}",
+                "notes"))
     def create_new_order_note(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
         """Create a new order note by passing information in either data or
@@ -81,14 +95,13 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        endpoint = urljoin(endpoint + "/", "notes")
-        return self.post(
-            endpoint=self._ENDPOINT_KEY,
-            data=data,
-            json=json
-            )
 
+    @PyVeeqo._endpoint_builder(
+            method="POST",
+            path_structure=(
+                "orders",
+                "{order_id}",
+                "allocations"))
     def create_new_allocation(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
         """Allocate new stock to an order by passing information in either
@@ -101,18 +114,16 @@ class Orders(PyVeeqo):
             Defaults to None.
             json (Optional[JSONType], optional): Order data in json format.
             Defaults to None.
-
+            
         Returns:
             Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        endpoint = urljoin(endpoint + "/", "allocations")
-        return self.post(
-            endpoint=self._ENDPOINT_KEY,
-            data=data,
-            json=json
-            )
 
+    @PyVeeqo._endpoint_builder(
+            method="PUT",
+            path_structure=(
+                "orders",
+                "{order_id}"))
     def update_order_detail(self, order_id: int, data: Dict = None) -> Result:
         """Update the details of an order, specified by it's unique
         Veeqo identifier.
@@ -126,12 +137,14 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        return self.put(
-            endpoint=endpoint,
-            data=data
-            )
 
+    @PyVeeqo._endpoint_builder(
+            method="PUT",
+            path_structure=(
+                "orders",
+                "{order_id}",
+                "allocations",
+                "{allocation_id}"))
     def update_allocation_detail(self, order_id: int, allocation_id: int,
                                  data: Dict = None) -> Result:
         """Update the details of an order allocation, specified by the unique
@@ -146,13 +159,15 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        endpoint = urljoin(endpoint + "/allocations/", allocation_id)
-        return self.put(
-            endpoint=endpoint,
-            data=data
-            )
 
+
+    @PyVeeqo._endpoint_builder(
+            method="DELETE",
+            path_structure=(
+                "orders",
+                "{order_id}",
+                "allocations",
+                "{allocation_id}"))
     def delete_allocation(self, order_id: int, allocation_id: int) -> Result:
         """Delete a specific order allocation, specified by the unique
         Veeqo identifiers for the order and specific allocation.
@@ -165,6 +180,3 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", order_id)
-        endpoint = urljoin(endpoint + "/allocations/", allocation_id)
-        return self.delete(endpoint=endpoint)

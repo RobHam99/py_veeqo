@@ -1,5 +1,6 @@
 from typing import List, Dict
-from .pyveeqo import PyVeeqo
+from py_veeqo.pyveeqo import PyVeeqo
+from py_veeqo.models import Result
 
 
 class PurchaseOrders(PyVeeqo):
@@ -7,7 +8,8 @@ class PurchaseOrders(PyVeeqo):
     """
     _ENDPOINT_KEY = "purchase_orders"
 
-    def get_all_purchase_orders(self, **kwargs) -> List[Dict]:
+    @PyVeeqo._endpoint_builder(method="GET", path_structure=("purchase_orders",))
+    def get_all_purchase_orders(self, **kwargs) -> Result:
         """Get a list of all purchase orders, and their corresponding
         information.
         https://developers.veeqo.com/docs#/reference/purchase-orders/purchase-order-collection/list-all-purchase-orders
@@ -15,4 +17,3 @@ class PurchaseOrders(PyVeeqo):
         Returns:
             List[Dict]: A list of containing a dict for each purchase order.
         """
-        return self.get(endpoint=self._ENDPOINT_KEY, params=kwargs).data

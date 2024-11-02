@@ -9,8 +9,15 @@ class StockEntries(PyVeeqo):
     """
     _ENDPOINT_KEY = "sellables"
 
+    @PyVeeqo._endpoint_builder(
+            method="GET", 
+            path_structure=("sellables",
+                            "{sellable_id}",
+                            "warehouses",
+                            "{warehouse_id}",
+                            "stock_entry"))
     def get_stock_entry(self, sellable_id: int,
-                        warehouse_id: int) -> Dict:
+                        warehouse_id: int) -> Result:
         """Show a specific stock entry for a specific warehouse.
         https://developers.veeqo.com/docs#/reference/stock-entries/stock-entry/show-a-stock-entry
 
@@ -21,13 +28,14 @@ class StockEntries(PyVeeqo):
         Returns:
             Dict: Stock entry data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", sellable_id)
-        endpoint = urljoin(
-            endpoint + "/warehouses/",
-            warehouse_id + "/stock_entry"
-            )
-        return self.get(endpoint=endpoint).data
 
+    @PyVeeqo._endpoint_builder(
+            method="PUT",
+            path_structure=("sellables",
+                            "{sellable_id}",
+                            "warehouses",
+                            "{warehouse_id}",
+                            "stock_entry"))
     def update_stock_entry(self, sellable_id: int,
                            warehouse_id: int, data: Dict = None) -> Result:
         """Update a specific stock entry for a specific warehouse.
@@ -40,9 +48,3 @@ class StockEntries(PyVeeqo):
         Returns:
             Dict: Stock entry data.
         """
-        endpoint = urljoin(self._ENDPOINT_KEY + "/", sellable_id)
-        endpoint = urljoin(
-            endpoint + "/warehouses/",
-            warehouse_id + "/stock_entry"
-            )
-        return self.put(endpoint=endpoint, data=data)
