@@ -8,15 +8,16 @@ class Company(PyVeeqo):
     """
     _ENDPOINT_KEY = "current_company"
 
-    def get_company(self) -> Dict:
+    @PyVeeqo._endpoint_builder(method="GET", path_structure=("current_company",))
+    def get_company(self) -> Result:
         """Get current company details
         https://developers.veeqo.com/docs#/reference/company/company/view-company-detail
 
         Returns:
             Dict: Company data.
         """
-        return self.get(endpoint=self._ENDPOINT_KEY).data
 
+    @PyVeeqo._endpoint_builder(method="PUT", path_structure=("current_company",))
     def update_company_detail(self, data: Dict = None) -> Result:
         """Update the company details.
         https://developers.veeqo.com/docs#/reference/warehouses/update-company-detail
@@ -28,4 +29,4 @@ class Company(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        return self.put(endpoint=self._ENDPOINT_KEY)
+
