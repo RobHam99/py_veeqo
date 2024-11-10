@@ -1,2 +1,2 @@
 > [!NOTE]  
-> This project is currently under development. Endpoint functionality should be completed within the month.
+> This project is currently under development. Currently finalising unittests.
