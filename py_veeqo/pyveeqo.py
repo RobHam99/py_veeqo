@@ -1,4 +1,4 @@
-from typing import Dict, List, Optional, Callable
+from typing import Dict, List, Callable
 from functools import wraps
 import os
 from json import JSONDecodeError
@@ -37,6 +37,7 @@ class PyVeeqo:
                                 'https://help.veeqo.com/en/articles/3826041-api-key')
             self._api_key = api_key
         else:
+            self._api_key = None
             self.base_url = self._MOCK_URL
 
         self._ssl_verify = True
@@ -56,12 +57,12 @@ class PyVeeqo:
         for part in path_structure:
             if part.startswith("{") and part.endswith("}"):
                 key = part[1:-1]
-                print(key)
                 if key in path_params:
-                    print(str(path_params[key]))
                     endpoint.append(str(path_params[key]).strip("/"))
                 else:
                     raise ValueError(f"Missing path parameter: {key}")
+            elif part.startswith("{") or part.endswith("}"):
+                raise ValueError("Path parameter not formatted correctly")
             else:
                 endpoint.append(part.strip("/"))
                     

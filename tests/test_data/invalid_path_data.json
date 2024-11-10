@@ -1,0 +1,12 @@
+{
+    "tests": [
+        {
+            "path_structure": ["orders", "{order_id}", "details"],
+            "path_params": {}
+        },
+        {
+            "path_structure": ["orders", "{order_id", "details"],
+            "path_params": {"order_id": "12345"}
+        }
+    ]
+}
