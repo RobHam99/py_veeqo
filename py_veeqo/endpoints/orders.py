@@ -1,5 +1,4 @@
-from typing import List, Dict, Optional
-from urllib.parse import urljoin
+from typing import Dict, Optional
 from py_veeqo.pyveeqo import PyVeeqo
 from py_veeqo.types import JSONType
 from py_veeqo.models import Result
@@ -45,7 +44,7 @@ class Orders(PyVeeqo):
     def get_order_returns(self, order_id: int) -> Result:
         """Show returns for a given order.
         https://developers.veeqo.com/docs#/reference/returns/returns/show-returns-on-order
-        
+
         Args:
             order_id (str): Unique Veeqo id number for a given order.
 
@@ -114,7 +113,7 @@ class Orders(PyVeeqo):
             Defaults to None.
             json (Optional[JSONType], optional): Order data in json format.
             Defaults to None.
-            
+
         Returns:
             Result: Result object containing status code, message and data.
         """
@@ -159,7 +158,6 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-
 
     @PyVeeqo._endpoint_builder(
             method="DELETE",

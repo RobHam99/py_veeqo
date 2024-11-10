@@ -1,5 +1,6 @@
 from typing import Dict, List, Optional, Callable
 from functools import wraps
+import os
 from json import JSONDecodeError
 import requests
 import requests.packages
@@ -11,9 +12,10 @@ from py_veeqo.types import JSONType
 class PyVeeqo:
     """Rest adapter for the Veeqo api.
     """
-    _HOST_URL = "https://api.veeqo.com/"
+    _PROD_URL = "https://api.veeqo.com/"
+    _MOCK_URL = "https://private-anon-ab721c1a44-veeqo.apiary-mock.com/"
 
-    def __init__(self, api_key: str = ''):
+    def __init__(self, api_key: str = None, test: bool = False):
         """Constructor for PyVeeqo
 
         Args:
@@ -22,16 +24,30 @@ class PyVeeqo:
             ssl_verify (bool, optional): If having issues with SSL/TLS
             cert validation, can set to False. Defaults to True.
         """
-        self._api_key = api_key
+        if not test:
+            self.base_url = self._PROD_URL
+            if api_key is None:
+                api_key = os.environ.get('PYVEEQO_API_KEY')
+            if not api_key or not isinstance(api_key, str):
+                raise ValueError('The PyVeeqo API key must be provided '
+                                'either through the key parameter or '
+                                'through the environment variable '
+                                'PYVEEQO_API_KEY. Apply for a free '
+                                'Veeqo API key: '
+                                'https://help.veeqo.com/en/articles/3826041-api-key')
+            self._api_key = api_key
+        else:
+            self.base_url = self._MOCK_URL
+
         self._ssl_verify = True
 
-    @classmethod
-    def build_endpoint(cls, path_structure: List[str], path_params: Dict[str, str]) -> str:
+    def _build_endpoint(self, path_structure: List[str],
+                       path_params: Dict[str, str]) -> str:
         """Builds the endpoint url.
 
         Args:
-            *segments (str): url segments.
-            **path_params (str): path parameters.
+            path_structure: structure of the endpoint path.
+            **path_params (Dict): path parameters.
 
         Returns:
             str: url endpoint.
@@ -49,7 +65,7 @@ class PyVeeqo:
             else:
                 endpoint.append(part.strip("/"))
                     
-        return cls._HOST_URL + "/".join(endpoint)
+        return self.base_url + "/".join(endpoint)
 
     @classmethod
     def _endpoint_builder(cls, method: str, path_structure: List[str]) -> Callable:
@@ -73,20 +89,20 @@ class PyVeeqo:
                 path_params = {part[1:-1]: kwargs[part[1:-1]] for part in path_structure if part.startswith('{') and part.endswith('}')}
 
                 # Construct endpoint url    
-                url = cls.build_endpoint(path_structure, path_params)
+                url = cls._build_endpoint(path_structure, path_params)
 
                 data = kwargs.get("data")
                 params = kwargs.get("params")
                 json = kwargs.get("json")
 
                 return cls._generic_request_handler(
-                    http_method=method, 
-                    url=url, 
-                    params=params, 
-                    data=data, 
+                    http_method=method,
+                    url=url,
+                    params=params,
+                    data=data,
                     json=json
                     )
-            
+
             return wrapper
         return decorator
 
@@ -94,7 +110,8 @@ class PyVeeqo:
                                  http_method: str,
                                  url: str,
                                  params: Dict = None,
-                                 data: Dict = None) -> Result:
+                                 data: Dict = None,
+                                 json: JSONType = None) -> Result:
         """Generic request method.
 
         Args:
@@ -119,8 +136,9 @@ class PyVeeqo:
                 verify=self._ssl_verify,
                 headers=headers,
                 params=params,
-                json=data
-                )
+                data=data,
+                json=json
+            )
         except requests.exceptions.RequestException as error:
             raise PyVeeqoException("Request Failed") from error
 

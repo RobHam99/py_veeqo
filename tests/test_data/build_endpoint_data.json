@@ -1,0 +1,25 @@
+{
+    "base_url": "https://api.veeqo.com/",
+    "tests": [
+        {
+            "path_structure": ["orders"],
+            "path_params": {},
+            "result": "orders"
+        },
+        {
+            "path_structure": ["orders", "{order_id}"],
+            "path_params": {"order_id": 12345},
+            "result": "orders/12345"
+        },
+        {
+            "path_structure": ["orders", "{order_id}", "notes"],
+            "path_params": {"order_id": 12345},
+            "result": "orders/12345/notes"
+        },
+        {
+            "path_structure": ["orders", "{order_id}", "allocations", "{allocation_id}"],
+            "path_params": {"order_id": 12345, "allocation_id": 67890},
+            "result": "orders/12345/allocations/67890"
+        }
+    ]
+}
