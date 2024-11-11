@@ -1,5 +1,6 @@
 import requests
 import unittest
+from json import JSONDecodeError
 from unittest.mock import patch, MagicMock
 from py_veeqo.pyveeqo import PyVeeqo
 from py_veeqo.models import Result
@@ -118,6 +119,7 @@ class TestPyVeeqo(unittest.TestCase):
         # Mock a 404 response
         mock_response = MagicMock()
         mock_response.status_code = 404
+        mock_response.ok = False
         mock_response.reason = "Not Found"
         mock_response.json.return_value = {"message": "Resource not found"}
         mock_request.return_value = mock_response
@@ -131,6 +133,7 @@ class TestPyVeeqo(unittest.TestCase):
         # Mock a 500 Internal Server Error response
         mock_response = MagicMock()
         mock_response.status_code = 500
+        mock_response.ok = False
         mock_response.reason = "Internal Server Error"
         mock_response.json.return_value = {"message": "Server error occurred"}
         mock_request.return_value = mock_response
@@ -153,8 +156,7 @@ class TestPyVeeqo(unittest.TestCase):
         # Mock a POST request with no data
         mock_response = MagicMock()
         mock_response.status_code = 400
-        mock_response.reason = "Bad Request"
-        mock_response.json.return_value = {"message": "Missing required data"}
+        mock_response.ok = False 
         mock_request.return_value = mock_response
 
         api = PyVeeqo(test=True)
@@ -167,7 +169,8 @@ class TestPyVeeqo(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.reason = "OK"
-        mock_response.json.return_value = ["unexpected", "response", "format"]
+        mock_response.text = '{ "name": "John Doe", "age": 30 '  # Invalid JSON (missing closing brace)
+        mock_response.json.side_effect = JSONDecodeError("Expecting ',' delimiter", mock_response.text, 35)
         mock_request.return_value = mock_response
 
         api = PyVeeqo(test=True)

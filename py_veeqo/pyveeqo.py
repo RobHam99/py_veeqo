@@ -129,6 +129,10 @@ class PyVeeqo:
         Returns:
             Result: Result object containing status code, message and data.
         """
+        
+        # Validate that mutually exclusive parameters are not used together
+        if data and json:
+            raise ValueError("Cannot use both 'data' and 'json' in the same request.")
         headers = {'x-api-key': self._api_key}
         try:
             response = requests.request(
@@ -146,11 +150,11 @@ class PyVeeqo:
         # Deserialize JSON output to Python object
         try:
             data_out = response.json()
+            print(data_out)
         except (ValueError, JSONDecodeError) as error:
             raise PyVeeqoException("Bad JSON in response") from error
-
-        is_success = response.ok
-        if is_success:
+        
+        if response.ok:
             return Result(
                 response.status_code,
                 message=response.reason,
