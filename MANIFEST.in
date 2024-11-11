@@ -1,0 +1,3 @@
+include README.md
+include LICENSE
+recursive-include your_package_name *.txt *.rst *.md  # Include text files in the package
