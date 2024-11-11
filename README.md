@@ -1,5 +1,8 @@
 # PyVeeqo
+[![Documentation Status](https://readthedocs.org/projects/py-veeqo/badge/?version=latest)](https://py-veeqo.readthedocs.io/en/latest/?badge=latest)
+
 A Python wrapper for the Veeqo ecommerce API.
+
 > [!NOTE]  
 > This project is currently under development. 
 
