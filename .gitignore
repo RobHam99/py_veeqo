@@ -18,7 +18,7 @@ ENV/
 
 # Environment variables and credentials
 .env
-*.env
+*.env#
 config.json
 
 # Dependency directories
@@ -51,3 +51,10 @@ dist/
 
 # Development and testing directory
 dev/
+
+
+### macOS ###
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
