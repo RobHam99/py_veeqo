@@ -39,7 +39,7 @@ By contributing to this project, you agree to abide by its terms.
 
 ## License
 
-`pycounts` was created by Tomas Beuzen. It is licensed under the terms
+`PyVeeqo` was created by Robert J. Hamilton. It is licensed under the terms
 of the MIT license.
 
 ## Leave a star :star2:
