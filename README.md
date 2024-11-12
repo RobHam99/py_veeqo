@@ -1,5 +1,5 @@
 # PyVeeqo
-[![Documentation Status](https://readthedocs.org/projects/py-veeqo/badge/?version=latest)](https://py-veeqo.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://readthedocs.org/projects/py-veeqo/badge/?version=latest)](https://py-veeqo.readthedocs.io/en/latest/?badge=latest) [![Percentage of issues still open](http://isitmaintained.com/badge/open/RobHam99/py_veeqo.svg)](http://isitmaintained.com/project/RobHam99/py_veeqo "Percentage of issues still open") [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/RobHam99/py_veeqo.svg)](http://isitmaintained.com/project/RobHam99/py_veeqo "Average time to resolve an issue")
 
 A Python wrapper for the Veeqo ecommerce API.
 
