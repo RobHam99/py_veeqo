@@ -24,14 +24,35 @@ pv = Products(api_key=your_veeqo_api_key)
 orders = pv.get_all_orders()
 ```
 
-## Examples
+You can verify whether the installation was successful by running the following command in your terminal:
 
-Examples can be found at 
+```bash
+$ python -c "import py_veeqo; print(py_veeqo.__version__)"
+```
+
+Alternatively, create and run a python file containing the same code:
+
+```python
+import py_veeqo
+
+print(py_veeqo.__version__)
+```
+
+## Documentation
+
+The PyVeeqo documentation can be found [here](https://py-veeqo.readthedocs.io/en/latest/). The documentation contains information about each Veeqo endpoint and the various queries the user can make. 
+
+### Examples
+
+The documentation also contains some example code to help the user better understand the possible operations in the Veeqo API. These examples can be found [here](https://py-veeqo.readthedocs.io/en/latest/examples.html).
 
 ## Tests
 
-## Documentation
-The code documentation can be found at 
+Tests can be run using the following command:
+
+```bash
+$ python -m unittest -v tests.test_pyveeqo.TestPyVeeqo
+```
 
 ## Contributing
 
