@@ -6,59 +6,20 @@ The Veeqo API consists of a number of endpoints that allow you to interact with 
 Available Endpoints
 ===================
 
-Click below to see the full list of available endpoints:
+.. toctree::
+   :maxdepth: 2
+   :caption: Available Endpoints:
 
-.. collapsible::
-    :title: Endpoints
-   - **`/api/v1/orders`**: Fetches all customer orders.
-   - **`/api/v1/products`**: Retrieves all product data.
-   - **`/api/v1/purchase_orders`**: Returns all purchase orders.
-   - **`/api/v1/suppliers`**: Fetches all supplier data.
-   - **`/api/v1/company`**: Returns company information.
-   - **`/api/v1/warehouses`**: Retrieves all warehouse data.
-   - **`/api/v1/customers`**: Lists all customers.
-   - **`/api/v1/stores`**: Fetches all store data.
-   - **`/api/v1/delivery_methods`**: Returns all delivery methods.
-   - **`/api/v1/shipments`**: Fetches all shipment data.
-   - **`/api/v1/stock_entries`**: Retrieves all stock entries.
-   - **`/api/v1/tags`**: Lists all tags.
-   - **`/api/v1/bulk_tagging`**: Bulk tagging of orders.
-
-Orders
-------
-
-Products
---------
-
-Purchase Orders
----------------
-
-Suppliers
----------
-
-Company
--------
-
-Warehouses
-----------
-
-Customers
----------
-
-Stores
-------
-
-Delivery Methods
-----------------
-
-Shipments
----------
-
-Stock Entries
--------------
-
-Tags
-----
-
-Bulk Tagging
-------------
+   orders
+   products
+   purchase orders
+   suppliers
+   company
+   warehouses
+   customers
+   stores
+   delivery methods
+   shipments
+   stock entries
+   tags
+   bulk tagging
