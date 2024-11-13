@@ -22,3 +22,42 @@ Click below to see the full list of available endpoints:
    - **`/api/v1/stock_entries`**: Retrieves all stock entries.
    - **`/api/v1/tags`**: Lists all tags.
    - **`/api/v1/bulk_tagging`**: Bulk tagging of orders.
+
+Orders
+------
+
+Products
+--------
+
+Purchase Orders
+---------------
+
+Suppliers
+---------
+
+Company
+-------
+
+Warehouses
+----------
+
+Customers
+---------
+
+Stores
+------
+
+Delivery Methods
+----------------
+
+Shipments
+---------
+
+Stock Entries
+-------------
+
+Tags
+----
+
+Bulk Tagging
+------------

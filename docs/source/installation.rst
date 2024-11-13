@@ -8,7 +8,7 @@ To install the latest version of the package, run the following command:
 
 .. code-block:: bash
 
-    pip install py_veeqo
+    $ pip install py_veeqo
 
 It is not recommended to install any packages directly 
 into the Python environment; consider using `pip` or 
@@ -24,10 +24,10 @@ To verify that the package was installed correctly, run the following command:
 
 .. code-block:: bash
 
-    python -c "import py_veeqo; print(py_veeqo.__version__)"
+    $ python -c "import py_veeqo; print(py_veeqo.__version__)"
 
 Additionally, you can run the following command to execute the unit tests:
 
 .. code-block:: bash
 
-     python -m unittest -v tests/test_pyveeqo.py
+    $ python -m unittest -v tests/test_pyveeqo.py
