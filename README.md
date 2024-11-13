@@ -1,10 +1,17 @@
 # PyVeeqo
 [![Documentation Status](https://readthedocs.org/projects/py-veeqo/badge/?version=latest)](https://py-veeqo.readthedocs.io/en/latest/?badge=latest) [![Percentage of issues still open](http://isitmaintained.com/badge/open/RobHam99/py_veeqo.svg)](http://isitmaintained.com/project/RobHam99/py_veeqo "Percentage of issues still open") [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/RobHam99/py_veeqo.svg)](http://isitmaintained.com/project/RobHam99/py_veeqo "Average time to resolve an issue")
 
-A Python wrapper for the Veeqo ecommerce API.
+PyVeeqo is a python wrapper for the Veeqo ecommerce API. This is a low-level and lightweight wrapper, designed with two main objectives:
+
+1. To faciliate easier access to the Veeqo API, for entry level users, who only know basic Python.
+2. To enable faster software development for businesses already utilising the Veeqo API.
+
+The Veeqo API currently has 15 different accessible endpoints ranging from `Products` to `Bulk Tagging`, with each endpoint containing multiple different functions, such as the ability to product a list of all products, or bulk delete order tags. PyVeeqo contains robust and easy-to-use implementations for all 15 endpoints.
+
+Please consider giving this repository a star if you like it! It would be nice to know someone has found it useful other than myself.
 
 > [!NOTE]  
-> This project is currently under development. 
+> This project is currently in Alpha testing. 
 
 ## Installation
 
@@ -56,9 +63,7 @@ $ python -m unittest -v tests.test_pyveeqo.TestPyVeeqo
 
 ## Contributing
 
-Interested in contributing? Check out the contributing guidelines. 
-Please note that this project is released with a Code of Conduct. 
-By contributing to this project, you agree to abide by its terms.
+Please get in touch if you would like to contribute, or wish to give feedback on the codebase. I'm always open to learning and collaborating!
 
 ## License
 
