@@ -53,12 +53,16 @@ The PyVeeqo documentation can be found [here](https://py-veeqo.readthedocs.io/en
 
 The documentation also contains some example code to help the user better understand the possible operations in the Veeqo API. These examples can be found [here](https://py-veeqo.readthedocs.io/en/latest/examples.html).
 
+### API
+
+Full details of each of the available endpoints and their respective functions can be found [here](https://py-veeqo.readthedocs.io/en/latest/api.html)
+
 ## Tests
 
 Tests can be run using the following command:
 
 ```bash
-$ python -m unittest -v tests.test_pyveeqo.TestPyVeeqo
+$ python -m unittest -v tests/test_pyveeqo.py
 ```
 
 ## Contributing
