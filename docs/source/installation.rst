@@ -23,5 +23,11 @@ Verifying the Installation
 To verify that the package was installed correctly, run the following command:
 
 .. code-block:: bash
-    
+
     python -c "import py_veeqo; print(py_veeqo.__version__)"
+
+Additionally, you can run the following command to execute the unit tests:
+
+.. code-block:: bash
+
+     python -m unittest -v tests/test_pyveeqo.py
