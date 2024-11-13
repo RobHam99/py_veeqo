@@ -9,6 +9,7 @@ Available Endpoints
 Click below to see the full list of available endpoints:
 
 .. collapsible::
+    :title: Endpoints
    - **`/api/v1/orders`**: Fetches all customer orders.
    - **`/api/v1/products`**: Retrieves all product data.
    - **`/api/v1/purchase_orders`**: Returns all purchase orders.
