@@ -12,14 +12,14 @@ Available Endpoints
 
    orders
    products
-   purchase orders
+   purchase_orders
    suppliers
    company
    warehouses
    customers
    stores
-   delivery methods
+   delivery_methods
    shipments
-   stock entries
+   stock_entries
    tags
-   bulk tagging
+   bulk_tagging
