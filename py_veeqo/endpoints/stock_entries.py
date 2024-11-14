@@ -1,5 +1,4 @@
 from typing import Dict
-from urllib.parse import urljoin
 from py_veeqo.pyveeqo import PyVeeqo
 from py_veeqo.models import Result
 
@@ -10,12 +9,7 @@ class StockEntries(PyVeeqo):
     _ENDPOINT_KEY = "sellables"
 
     @PyVeeqo._endpoint_builder(
-            method="GET", 
-            path_structure=("sellables",
-                            "{sellable_id}",
-                            "warehouses",
-                            "{warehouse_id}",
-                            "stock_entry"))
+        method="GET", path_structure=("sellables", "{sellable_id}", "warehouses", "{warehouse_id}", "stock_entry"))
     def get_stock_entry(self, sellable_id: int,
                         warehouse_id: int) -> Result:
         """Show a specific stock entry for a specific warehouse.
@@ -28,14 +22,10 @@ class StockEntries(PyVeeqo):
         Returns:
             Dict: Stock entry data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
-            method="PUT",
-            path_structure=("sellables",
-                            "{sellable_id}",
-                            "warehouses",
-                            "{warehouse_id}",
-                            "stock_entry"))
+        method="PUT", path_structure=("sellables", "{sellable_id}", "warehouses", "{warehouse_id}", "stock_entry"))
     def update_stock_entry(self, sellable_id: int,
                            warehouse_id: int, data: Dict = None) -> Result:
         """Update a specific stock entry for a specific warehouse.
@@ -48,3 +38,4 @@ class StockEntries(PyVeeqo):
         Returns:
             Dict: Stock entry data.
         """
+        pass

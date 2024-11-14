@@ -12,10 +12,8 @@ class Company(PyVeeqo):
     def get_company(self) -> Result:
         """Get current company details
         https://developers.veeqo.com/docs#/reference/company/company/view-company-detail
-
-        Returns:
-            Dict: Company data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(method="PUT", path_structure=("current_company",))
     def update_company_detail(self, data: Dict = None) -> Result:
@@ -23,10 +21,9 @@ class Company(PyVeeqo):
         https://developers.veeqo.com/docs#/reference/warehouses/update-company-detail
 
         Args:
-            data (Dict, optional): Company details to update.
-            Defaults to None.
+            data (Dict, optional): Company details to update. Defaults to None.
 
         Returns:
             Result: Result object containing status code, message and data.
         """
-
+        pass

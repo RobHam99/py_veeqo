@@ -10,14 +10,40 @@ class Orders(PyVeeqo):
     _ENDPOINT_KEY = "orders"
 
     @PyVeeqo._endpoint_builder(method="GET", path_structure=("orders",))
-    def get_all_orders(self, **kwargs) -> Result:
+    def get_all_orders(
+        self,
+        since_id: int = None,
+        created_at_min: str = None,
+        updated_at_min: str = None,
+        page_size: int = 12,
+        page: int = 1,
+        query: str = None,
+        status: str = None,
+        tags: str = None,
+        allocated_at: int = None) -> Result:
         """Get a list of all historical orders and their corresponding
         information.
         https://developers.veeqo.com/docs#/reference/orders/order-collection/list-all-orders
 
+        Args:
+            since_id (int, optional): Return orders with id greater than this
+            value. Defaults to None.
+            created_at_min (str, optional): Return orders created after this
+            date. Defaults to None.
+            updated_at_min (str, optional): Return orders updated after this
+            date. Defaults to None.
+            page_size (int, optional): Number of orders per page. Defaults to 12.
+            page (int, optional): Page number. Defaults to 1.
+            query (str, optional): Search query. Defaults to None.
+            status (str, optional): Order status. Defaults to None.
+            tags (str, optional): Order tags. Defaults to None.
+            allocated_at (int, optional): Return orders allocated at this time.
+            Defaults to None.
+
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="GET",
@@ -34,6 +60,7 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="GET",
@@ -51,6 +78,7 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="POST",
@@ -71,6 +99,7 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="POST",
@@ -94,6 +123,7 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="POST",
@@ -117,6 +147,7 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="PUT",
@@ -136,6 +167,7 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="PUT",
@@ -158,6 +190,7 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
 
     @PyVeeqo._endpoint_builder(
             method="DELETE",
@@ -178,3 +211,4 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
+        pass
