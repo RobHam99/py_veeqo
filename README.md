@@ -19,20 +19,6 @@ The Veeqo API currently has 15 different accessible endpoints ranging from `Prod
 $ pip install pyveeqo
 ```
 
-You can verify whether the installation was successful by running the following command in your terminal:
-
-```bash
-$ python -c "import py_veeqo; print(py_veeqo.__version__)"
-```
-
-Alternatively, create and run a python file containing the same code:
-
-```python
-import py_veeqo
-
-print(py_veeqo.__version__)
-```
-
 ## Usage
 
 `PyVeeqo` can be used to extract company information as follows:

@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='py_veeqo',
-    version='0.0.2',
+    version='0.0.3',
     author='Robert J. Hamilton',
     author_email='hamiltonrobbie@yahoo.co.uk',
     license='MIT',

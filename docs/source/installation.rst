@@ -15,18 +15,10 @@ into the Python environment; consider using `pip` or
 `conda` virtual environments to keep your operating 
 system space clean, and to avoid conflicts between projects.
 
-You **do not** need to read the rest of this page if the above command worked.
-
 Verifying the Installation
 --------------------------
 
 To verify that the package was installed correctly, run the following command:
-
-.. code-block:: bash
-
-    $ python -c "import py_veeqo; print(py_veeqo.__version__)"
-
-Additionally, you can run the following command to execute the unit tests:
 
 .. code-block:: bash
 
