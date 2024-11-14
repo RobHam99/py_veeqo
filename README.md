@@ -4,7 +4,7 @@
 > [!NOTE]  
 > This project is currently in Alpha testing. 
 
-PyVeeqo is a python wrapper for the Veeqo ecommerce API. This is a low-level and lightweight wrapper, designed with two main objectives:
+PyVeeqo is a python wrapper for the [Veeqo ecommerce API](https://developers.veeqo.com/docs). This is a low-level and lightweight wrapper, designed with two main objectives:
 
 1. To faciliate easier access to the Veeqo API, for entry level users, who only know basic Python.
 2. To enable faster software development for businesses already utilising the Veeqo API.
