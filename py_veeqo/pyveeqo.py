@@ -1,3 +1,4 @@
+"""Main module for the PyVeeqo package. Handles API calling."""
 from typing import Dict, List, Callable
 from functools import wraps
 import os
@@ -42,8 +43,7 @@ class PyVeeqo:
 
         self._ssl_verify = True
 
-    def _build_endpoint(self, path_structure: List[str],
-                       path_params: Dict[str, str]) -> str:
+    def _build_endpoint(self, path_structure: List[str], path_params: Dict[str, str]) -> str:
         """Builds the endpoint url.
 
         Args:
@@ -65,7 +65,7 @@ class PyVeeqo:
                 raise ValueError("Path parameter not formatted correctly")
             else:
                 endpoint.append(part.strip("/"))
-                    
+
         return self.base_url + "/".join(endpoint)
 
     @classmethod
@@ -107,12 +107,13 @@ class PyVeeqo:
             return wrapper
         return decorator
 
-    def _generic_request_handler(self,
-                                 http_method: str,
-                                 url: str,
-                                 params: Dict = None,
-                                 data: Dict = None,
-                                 json: JSONType = None) -> Result:
+    def _generic_request_handler(
+        self,
+        http_method: str,
+        url: str,
+        params: Dict = None,
+        data: Dict = None,
+        json: JSONType = None) -> Result:
         """Generic request method.
 
         Args:
@@ -122,14 +123,14 @@ class PyVeeqo:
             data (Dict, optional): data if POST. Defaults to None.
 
         Raises:
-            PyVeeqoException: _description_
-            PyVeeqoException: _description_
-            PyVeeqoException: _description_
+            PyVeeqoException: failed request.
+            PyVeeqoException: error decoding JSON.
+            PyVeeqoException: api call failure.
 
         Returns:
             Result: Result object containing status code, message and data.
         """
-        
+
         # Validate that mutually exclusive parameters are not used together
         if data and json:
             raise ValueError("Cannot use both 'data' and 'json' in the same request.")
@@ -153,7 +154,7 @@ class PyVeeqo:
             print(data_out)
         except (ValueError, JSONDecodeError) as error:
             raise PyVeeqoException("Bad JSON in response") from error
-        
+
         if response.ok:
             return Result(
                 response.status_code,
