@@ -46,10 +46,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="GET",
-            path_structure=(
-                "orders",
-                "{order_id}"))
+        method="GET", path_structure=("orders", "{order_id}"))
     def get_order_detail(self, order_id: int) -> Result:
         """Get order details for a specified order id.
         https://developers.veeqo.com/docs#/reference/orders/order/view-an-order-detail
@@ -63,11 +60,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="GET",
-            path_structure=(
-                "orders",
-                "{order_id}",
-                "returns"))
+        method="GET", path_structure=("orders", "{order_id}", "returns"))
     def get_order_returns(self, order_id: int) -> Result:
         """Show returns for a given order.
         https://developers.veeqo.com/docs#/reference/returns/returns/show-returns-on-order
@@ -81,9 +74,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="POST",
-            path_structure=(
-                "orders"))
+        method="POST", path_structure=("orders"))
     def create_new_order(self, data: Dict = None,
                          json: Optional[JSONType] = None) -> Result:
         """Create a new order by passing information in either data or json
@@ -102,11 +93,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="POST",
-            path_structure=(
-                "orders",
-                "{order_id}",
-                "notes"))
+        method="POST", path_structure=("orders", "{order_id}", "notes"))
     def create_new_order_note(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
         """Create a new order note by passing information in either data or
@@ -126,11 +113,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="POST",
-            path_structure=(
-                "orders",
-                "{order_id}",
-                "allocations"))
+        method="POST", path_structure=("orders", "{order_id}", "allocations"))
     def create_new_allocation(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
         """Allocate new stock to an order by passing information in either
@@ -150,10 +133,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="PUT",
-            path_structure=(
-                "orders",
-                "{order_id}"))
+        method="PUT", path_structure=("orders", "{order_id}"))
     def update_order_detail(self, order_id: int, data: Dict = None) -> Result:
         """Update the details of an order, specified by it's unique
         Veeqo identifier.
@@ -170,12 +150,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="PUT",
-            path_structure=(
-                "orders",
-                "{order_id}",
-                "allocations",
-                "{allocation_id}"))
+        method="PUT", path_structure=("orders", "{order_id}", "allocations", "{allocation_id}"))
     def update_allocation_detail(self, order_id: int, allocation_id: int,
                                  data: Dict = None) -> Result:
         """Update the details of an order allocation, specified by the unique
@@ -193,12 +168,7 @@ class Orders(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="DELETE",
-            path_structure=(
-                "orders",
-                "{order_id}",
-                "allocations",
-                "{allocation_id}"))
+        method="DELETE", path_structure=("orders", "{order_id}", "allocations", "{allocation_id}"))
     def delete_allocation(self, order_id: int, allocation_id: int) -> Result:
         """Delete a specific order allocation, specified by the unique
         Veeqo identifiers for the order and specific allocation.

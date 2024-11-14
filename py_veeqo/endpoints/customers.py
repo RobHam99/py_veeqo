@@ -22,8 +22,7 @@ class Customers(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="POST",
-            path_structure=("customers",))
+        method="POST", path_structure=("customers",))
     def create_a_customer(self, data: Dict = None, 
                           json: Optional[JSONType] = None) -> Result:
         """Create a new customer.
@@ -36,8 +35,7 @@ class Customers(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="GET",
-            path_structure=("customers", "{customer_id}"))
+        method="GET", path_structure=("customers", "{customer_id}"))
     def view_customer_detail(self, customer_id: int) -> Result:
         """Get details of a specific customer.
         https://developers.veeqo.com/docs#/reference/customers/customer/view-customer-detail
@@ -48,8 +46,7 @@ class Customers(PyVeeqo):
         pass
 
     @PyVeeqo._endpoint_builder(
-            method="PUT",
-            path_structure=("customers", "{customer_id}"))
+        method="PUT", path_structure=("customers", "{customer_id}"))
     def update_customer_detail(self, customer_id: int, 
                                data: Dict = None) -> Result:
         """Update details of a specific customer.
