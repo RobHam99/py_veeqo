@@ -24,7 +24,10 @@ $ pip install pyveeqo
 `PyVeeqo` can be used to extract company information as follows:
 
 ```python
-from py_veeqo.endpoints import Products
+from py_veeqo.endpoints.products import Products
+from py_veeqo.endpoints.customers import Customers
+from py_veeqo.endpoints.orders import Orders
+# Try out some other endpoints such as StockEntries!
 
 pv = Products(api_key=your_veeqo_api_key)
 
