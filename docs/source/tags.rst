@@ -5,4 +5,3 @@ Tags
     :members:
     :undoc-members:
     :show-inheritance:
-*/

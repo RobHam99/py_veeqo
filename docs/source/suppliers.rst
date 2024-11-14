@@ -5,4 +5,3 @@ Suppliers
     :members:
     :undoc-members:
     :show-inheritance:
-*/
