@@ -36,7 +36,8 @@ class PyVeeqo:
         self._api_key = api_key
         self._ssl_verify = True
 
-    def _build_endpoint(self, path_structure: List[str], path_params: Dict[str, str]) -> str:
+    @classmethod
+    def _build_endpoint(cls, path_structure: List[str], path_params: Dict[str, str]) -> str:
         """Builds the endpoint url.
 
         Args:
@@ -59,9 +60,10 @@ class PyVeeqo:
             else:
                 endpoint.append(part.strip("/"))
 
-        return self.base_url + "/".join(endpoint)
+        return cls.base_url + "/".join(endpoint)
 
-    def _endpoint_builder(self, method: str, path_structure: List[str]) -> Callable:
+    @classmethod
+    def _endpoint_builder(cls, method: str, path_structure: List[str]) -> Callable:
         """Decorator to dynamically build api endpoints and call the 
         main request handler.
 
@@ -82,7 +84,7 @@ class PyVeeqo:
                 path_params = {part[1:-1]: kwargs[part[1:-1]] for part in path_structure if part.startswith('{') and part.endswith('}')}
 
                 # Construct endpoint url    
-                url = self._build_endpoint(path_structure, path_params)
+                url = cls._build_endpoint(path_structure, path_params)
 
                 data = kwargs.get("data")
                 params = kwargs.get("params")
