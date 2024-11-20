@@ -2,7 +2,7 @@ import requests
 import unittest
 from json import JSONDecodeError
 from unittest.mock import patch, MagicMock
-from py_veeqo.pyveeqo import PyVeeqo
+from py_veeqo.pyveeqo import TestApi, PyVeeqo
 from py_veeqo.models import Result
 from py_veeqo.exceptions import PyVeeqoException
 from .utils import load_test_data
@@ -28,7 +28,7 @@ class TestPyVeeqo(unittest.TestCase):
         base_url = test_data["base_url"]
         tests = test_data["tests"]
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
 
         num_tests = len(tests)
         for i, test in enumerate(tests):
@@ -61,7 +61,7 @@ class TestPyVeeqo(unittest.TestCase):
         tests = test_data["tests"]
         test_base_url = test_data["base_url"]
 
-        api = PyVeeqo(api_key='dummy')
+        api = TestApi(api_key='test')
 
         for test in tests:
             result = api._build_endpoint(
@@ -73,7 +73,7 @@ class TestPyVeeqo(unittest.TestCase):
 
     def test_missing_path_param(self):
         """Test that an error is raised when a path parameter is missing."""
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(ValueError):
             # 'order_id' is missing in the path_params
             api._build_endpoint(
@@ -83,7 +83,7 @@ class TestPyVeeqo(unittest.TestCase):
 
     def test_invalid_path_structure(self):
         """Test that an error is raised when the path structure is invalid."""
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         test_data = load_test_data("invalid_path_data.json")["tests"]
         for test in test_data:
             with self.assertRaises(ValueError):
@@ -100,7 +100,7 @@ class TestPyVeeqo(unittest.TestCase):
         mock_response.json.side_effect = ValueError("Invalid JSON")
         mock_request.return_value = mock_response
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(PyVeeqoException):
             api._generic_request_handler(http_method="GET", url="fake_url")
 
@@ -110,7 +110,7 @@ class TestPyVeeqo(unittest.TestCase):
         # Mock a timeout exception
         mock_request.side_effect = requests.exceptions.Timeout
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(PyVeeqoException):
             api._generic_request_handler(http_method="GET", url="fake_url")
 
@@ -124,7 +124,7 @@ class TestPyVeeqo(unittest.TestCase):
         mock_response.json.return_value = {"message": "Resource not found"}
         mock_request.return_value = mock_response
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(PyVeeqoException):
             api._generic_request_handler(http_method="GET", url="fake_url")
 
@@ -138,7 +138,7 @@ class TestPyVeeqo(unittest.TestCase):
         mock_response.json.return_value = {"message": "Server error occurred"}
         mock_request.return_value = mock_response
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(PyVeeqoException):
             api._generic_request_handler(http_method="GET", url="fake_url")
 
@@ -147,7 +147,7 @@ class TestPyVeeqo(unittest.TestCase):
         # Mock an unsupported HTTP method
         mock_request.side_effect = ValueError("Unsupported HTTP method")
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(ValueError):
             api._generic_request_handler(http_method="FOO", url="fake_url")
             
@@ -159,7 +159,7 @@ class TestPyVeeqo(unittest.TestCase):
         mock_response.ok = False 
         mock_request.return_value = mock_response
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(PyVeeqoException):
             api._generic_request_handler(http_method="POST", url="fake_url")
 
@@ -173,7 +173,7 @@ class TestPyVeeqo(unittest.TestCase):
         mock_response.json.side_effect = JSONDecodeError("Expecting ',' delimiter", mock_response.text, 35)
         mock_request.return_value = mock_response
 
-        api = PyVeeqo(test=True)
+        api = TestApi(api_key='test')
         with self.assertRaises(PyVeeqoException):
             api._generic_request_handler(http_method="GET", url="fake_url")
 

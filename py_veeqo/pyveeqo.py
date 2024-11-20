@@ -13,10 +13,9 @@ from py_veeqo.types import JSONType
 class PyVeeqo:
     """Rest adapter for the Veeqo api.
     """
-    _PROD_URL = "https://api.veeqo.com/"
-    _MOCK_URL = "https://private-anon-ab721c1a44-veeqo.apiary-mock.com/"
+    base_url = "https://api.veeqo.com/"
 
-    def __init__(self, api_key: str = None, test: bool = False):
+    def __init__(self, api_key: str = None):
         """Constructor for PyVeeqo
 
         Args:
@@ -25,25 +24,20 @@ class PyVeeqo:
             ssl_verify (bool, optional): If having issues with SSL/TLS
             cert validation, can set to False. Defaults to True.
         """
-        if not test:
-            self.base_url = self._PROD_URL
-            if api_key is None:
-                api_key = os.environ.get('PYVEEQO_API_KEY')
-            if not api_key or not isinstance(api_key, str):
-                raise ValueError('The PyVeeqo API key must be provided '
-                                'either through the key parameter or '
-                                'through the environment variable '
-                                'PYVEEQO_API_KEY. Apply for a free '
-                                'Veeqo API key: '
-                                'https://help.veeqo.com/en/articles/3826041-api-key')
-            self._api_key = api_key
-        else:
-            self._api_key = None
-            self.base_url = self._MOCK_URL
-
+        if api_key is None:
+            api_key = os.environ.get('PYVEEQO_API_KEY')
+        if not api_key or not isinstance(api_key, str):
+            raise ValueError('The PyVeeqo API key must be provided '
+                            'either through the key parameter or '
+                            'through the environment variable '
+                            'PYVEEQO_API_KEY. Apply for a free '
+                            'Veeqo API key: '
+                            'https://help.veeqo.com/en/articles/3826041-api-key')
+        self._api_key = api_key
         self._ssl_verify = True
 
-    def _build_endpoint(self, path_structure: List[str], path_params: Dict[str, str]) -> str:
+    @classmethod
+    def _build_endpoint(cls, path_structure: List[str], path_params: Dict[str, str]) -> str:
         """Builds the endpoint url.
 
         Args:
@@ -66,7 +60,7 @@ class PyVeeqo:
             else:
                 endpoint.append(part.strip("/"))
 
-        return self.base_url + "/".join(endpoint)
+        return cls.base_url + "/".join(endpoint)
 
     @classmethod
     def _endpoint_builder(cls, method: str, path_structure: List[str]) -> Callable:
@@ -162,3 +156,10 @@ class PyVeeqo:
                 data=data_out
                 )
         raise PyVeeqoException(f"{response.status_code}: {response.reason}")
+
+
+class TestApi(PyVeeqo):
+    """Rest adapter for the Veeqo API with test url.
+    -> FOR TESTING ONLY
+    """
+    base_url = "https://private-anon-ab721c1a44-veeqo.apiary-mock.com/"

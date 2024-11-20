@@ -1,5 +1,5 @@
 {
-    "base_url": "https://api.veeqo.com/",
+    "base_url": "https://private-anon-ab721c1a44-veeqo.apiary-mock.com/",
     "tests": [
         {
             "path_structure": ["orders"],
