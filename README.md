@@ -16,7 +16,7 @@ The Veeqo API currently has 15 different accessible endpoints ranging from `Prod
 ## Installation
 
 ```bash
-$ pip install pyveeqo
+$ pip install py-veeqo
 ```
 
 ## Usage
