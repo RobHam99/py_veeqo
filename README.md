@@ -9,7 +9,7 @@ PyVeeqo is a python wrapper for the [Veeqo ecommerce API](https://developers.vee
 1. To faciliate easier access to the Veeqo API, for entry level users, who only know basic Python.
 2. To enable faster software development for businesses already utilising the Veeqo API.
 
-The Veeqo API currently has 15 different accessible endpoints ranging from `Products` to `Bulk Tagging`, with each endpoint containing multiple different functions, such as the ability to product a list of all products, or bulk delete order tags. PyVeeqo contains robust and easy-to-use implementations for all 15 endpoints.
+The Veeqo API currently has 15 different accessible endpoints ranging from `Products` to `Bulk Tagging`, with each endpoint containing multiple different functions, such as the ability to produce a list of all products in your inventory, or bulk delete order tags. PyVeeqo contains robust and easy-to-use implementations for all 15 endpoints.
 
 **Please consider giving this repository a star if you like it!** It would be nice to know someone has found it useful other than myself.
 
