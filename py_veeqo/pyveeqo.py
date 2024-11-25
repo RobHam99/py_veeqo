@@ -142,12 +142,13 @@ class PyVeeqo:
         except requests.exceptions.RequestException as error:
             raise PyVeeqoException("Request Failed") from error
 
-        # Deserialize JSON output to Python object
-        try:
-            data_out = response.json()
-            print(data_out)
-        except (ValueError, JSONDecodeError) as error:
-            raise PyVeeqoException("Bad JSON in response") from error
+        if response.status_code != 204:
+            # Deserialize JSON output to Python object
+            try:
+                data_out = response.json()
+                print(data_out)
+            except (ValueError, JSONDecodeError) as error:
+                raise PyVeeqoException("Bad JSON in response") from error
 
         if response.ok:
             return Result(
