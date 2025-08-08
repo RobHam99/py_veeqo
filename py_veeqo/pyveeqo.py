@@ -148,7 +148,8 @@ class PyVeeqo:
             try:
                 data_out = response.json()
             except (ValueError, JSONDecodeError) as error:
-                raise PyVeeqoException("Bad JSON in response") from error
+                if response.text:
+                    raise PyVeeqoException("Bad JSON in response") from error
 
         if response.ok:
             return Result(
