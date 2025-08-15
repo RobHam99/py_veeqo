@@ -37,39 +37,28 @@ class PyVeeqo:
         self._ssl_verify = True
 
     @classmethod
-    def _build_endpoint(cls, path_structure: List[str], path_params: Dict[str, str]) -> str:
+    def _build_endpoint(cls, endpoint: str) -> str:
         """Builds the endpoint url.
 
         Args:
-            path_structure: structure of the endpoint path.
-            **path_params (Dict): path parameters.
+            endpoint (str): endpoint to be built.
 
         Returns:
-            str: url endpoint.
+            str: full api url.
         """
-        endpoint = []
-        for part in path_structure:
-            if part.startswith("{") and part.endswith("}"):
-                key = part[1:-1]
-                if key in path_params:
-                    endpoint.append(str(path_params[key]).strip("/"))
-                else:
-                    raise ValueError(f"Missing path parameter: {key}")
-            elif part.startswith("{") or part.endswith("}"):
-                raise ValueError("Path parameter not formatted correctly")
-            else:
-                endpoint.append(part.strip("/"))
-
+        if endpoint[0] == "/":
+            return cls.base_url + endpoint
+        elif endpoint[-1] == "/":
+            return cls.base_url + "/".join(endpoint[:-1])
         return cls.base_url + "/".join(endpoint)
 
     @classmethod
-    def _endpoint_builder(cls, method: str, path_structure: List[str]) -> Callable:
+    def _endpoint_builder(cls, method: str) -> Callable:
         """Decorator to dynamically build api endpoints and call the 
         main request handler.
 
         Args:
             method (str): _description_
-            path_structure (List[str]): _description_
 
         Returns:
             Callable: _description_
@@ -79,12 +68,14 @@ class PyVeeqo:
 
             @wraps(func)
             def wrapper(self, *args, **kwargs):
+                
+                # Get the endpoint from the function
+                endpoint = func(self, *args, **kwargs)
+                
+                # Build the full url
+                url = cls._build_endpoint(endpoint)
 
-                # Get the path parameters from the function arguments
-                path_params = {part[1:-1]: kwargs[part[1:-1]] for part in path_structure if part.startswith('{') and part.endswith('}')}
-
-                # Construct endpoint url    
-                url = cls._build_endpoint(path_structure, path_params)
+                # Based on method, extract data, params and json
 
                 data = kwargs.get("data")
                 params = kwargs.get("params")

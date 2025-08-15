@@ -9,7 +9,7 @@ class Warehouses(PyVeeqo):
     """
     _ENDPOINT_KEY = "warehouses"
 
-    @PyVeeqo._endpoint_builder(method="GET", path_structure=("warehouses",))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_all_warehouses(self, page_size: int = 12, page: int = 1) -> Result:
         """Get a list of all warehouses.
         https://developers.veeqo.com/docs#/reference/warehouses/warehouse-collection/list-all-warehouses
@@ -18,10 +18,9 @@ class Warehouses(PyVeeqo):
             page_size (int, optional): Number of items per page. Defaults to 12.
             page (int, optional): Page number. Defaults to 1.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("warehouses",))
+    @PyVeeqo._endpoint_builder(method="POST")
     def create_a_warehouse(self, data: Dict = None, json: Optional[JSONType] = None) -> Result:
         """Create a new warehouse.
         https://developers.veeqo.com/docs#/reference/warehouses/warehouse-collection/create-a-warehouse
@@ -30,10 +29,9 @@ class Warehouses(PyVeeqo):
             data (Dict, optional): _description_. Defaults to None.
             json (Optional[JSONType], optional): _description_. Defaults to None.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("warehouses", "{warehouse_id}"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def view_warehouse_detail(self, warehouse_id: int) -> Result:
         """Get details of a specific warehouse.
         https://developers.veeqo.com/docs#/reference/warehouses/warehouse/view-warehouse-detail
@@ -41,10 +39,9 @@ class Warehouses(PyVeeqo):
         Args:
             warehouse_id (int): The id of the warehouse.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{warehouse_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="PUT", path_structure=("warehouses", "{warehouse_id}"))    
+    @PyVeeqo._endpoint_builder(method="PUT")    
     def update_warehouse_detail(self, warehouse_id: int, data: Dict = None) -> Result:
         """Update details of a specific warehouse.
         https://developers.veeqo.com/docs#/reference/warehouses/warehouse/update-warehouse-detail
@@ -53,10 +50,9 @@ class Warehouses(PyVeeqo):
             warehouse_id (int): The id of the warehouse.
             data (Dict, optional): _description_. Defaults to None.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{warehouse_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="DELETE", path_structure=("warehouses", "{warehouse_id}"))
+    @PyVeeqo._endpoint_builder(method="DELETE")
     def delete_warehouse(self, warehouse_id: int) -> Result:
         """Delete a specific warehouse.
         https://developers.veeqo.com/docs#/reference/warehouses/warehouse/delete
@@ -64,4 +60,4 @@ class Warehouses(PyVeeqo):
         Args:
             warehouse_id (int): The id of the warehouse.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{warehouse_id}"

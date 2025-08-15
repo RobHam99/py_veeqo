@@ -9,7 +9,7 @@ class Orders(PyVeeqo):
     """
     _ENDPOINT_KEY = "orders"
 
-    @PyVeeqo._endpoint_builder(method="GET", path_structure=("orders",))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_all_orders(
         self,
         since_id: int = None,
@@ -43,10 +43,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("orders", "{order_id}"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_order_detail(self, order_id: int) -> Result:
         """Get order details for a specified order id.
         https://developers.veeqo.com/docs#/reference/orders/order/view-an-order-detail
@@ -57,10 +56,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{order_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("orders", "{order_id}", "returns"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_order_returns(self, order_id: int) -> Result:
         """Show returns for a given order.
         https://developers.veeqo.com/docs#/reference/returns/returns/show-returns-on-order
@@ -71,10 +69,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{order_id}/returns"
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("orders"))
+    @PyVeeqo._endpoint_builder(method="POST")
     def create_new_order(self, data: Dict = None,
                          json: Optional[JSONType] = None) -> Result:
         """Create a new order by passing information in either data or json
@@ -90,10 +87,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("orders", "{order_id}", "notes"))
+    @PyVeeqo._endpoint_builder(method="POST")
     def create_new_order_note(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
         """Create a new order note by passing information in either data or
@@ -110,10 +106,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{order_id}/notes"
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("orders", "{order_id}", "allocations"))
+    @PyVeeqo._endpoint_builder(method="POST")
     def create_new_allocation(self, order_id: int, data: Dict = None,
                               json: Optional[JSONType] = None) -> Result:
         """Allocate new stock to an order by passing information in either
@@ -130,10 +125,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{order_id}/allocations"
 
-    @PyVeeqo._endpoint_builder(
-        method="PUT", path_structure=("orders", "{order_id}"))
+    @PyVeeqo._endpoint_builder(method="PUT")
     def update_order_detail(self, order_id: int, data: Dict = None) -> Result:
         """Update the details of an order, specified by it's unique
         Veeqo identifier.
@@ -147,10 +141,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{order_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="PUT", path_structure=("orders", "{order_id}", "allocations", "{allocation_id}"))
+    @PyVeeqo._endpoint_builder(method="PUT")
     def update_allocation_detail(self, order_id: int, allocation_id: int,
                                  data: Dict = None) -> Result:
         """Update the details of an order allocation, specified by the unique
@@ -165,10 +158,9 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{order_id}/allocations/{allocation_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="DELETE", path_structure=("orders", "{order_id}", "allocations", "{allocation_id}"))
+    @PyVeeqo._endpoint_builder(method="DELETE")
     def delete_allocation(self, order_id: int, allocation_id: int) -> Result:
         """Delete a specific order allocation, specified by the unique
         Veeqo identifiers for the order and specific allocation.
@@ -181,4 +173,4 @@ class Orders(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{order_id}/allocations/{allocation_id}"
