@@ -10,7 +10,7 @@ class Warehouses(PyVeeqo):
     _ENDPOINT_KEY = "warehouses"
 
     @PyVeeqo._endpoint_builder(method="GET")
-    def get_all_warehouses(self, page_size: int = 12, page: int = 1) -> Result:
+    def get_all_warehouses(self, page_size: int = 12, page: int = 1, external_id: str = None) -> Result:
         """Get a list of all warehouses.
         https://developers.veeqo.com/docs#/reference/warehouses/warehouse-collection/list-all-warehouses
 

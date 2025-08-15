@@ -76,7 +76,6 @@ class PyVeeqo:
                 url = cls._build_endpoint(endpoint)
 
                 # Based on method, extract data, params and json
-
                 data = kwargs.get("data")
                 params = kwargs.get("params")
                 json = kwargs.get("json")
