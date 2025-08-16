@@ -8,6 +8,7 @@ import requests.packages
 from py_veeqo.exceptions import PyVeeqoException
 from py_veeqo.models import Result
 from py_veeqo.types import JSONType
+from urllib.parse import urljoin
 
 
 class PyVeeqo:
@@ -35,23 +36,7 @@ class PyVeeqo:
                             'https://help.veeqo.com/en/articles/3826041-api-key')
         self._api_key = api_key
         self._ssl_verify = True
-
-    @classmethod
-    def _build_endpoint(cls, endpoint: str) -> str:
-        """Builds the endpoint url.
-
-        Args:
-            endpoint (str): endpoint to be built.
-
-        Returns:
-            str: full api url.
-        """
-        if endpoint[0] == "/":
-            return cls.base_url + endpoint
-        elif endpoint[-1] == "/":
-            return cls.base_url + "/".join(endpoint[:-1])
-        return cls.base_url + "/".join(endpoint)
-
+        
     @classmethod
     def _endpoint_builder(cls, method: str) -> Callable:
         """Decorator to dynamically build api endpoints and call the 
@@ -69,17 +54,19 @@ class PyVeeqo:
             @wraps(func)
             def wrapper(self, *args, **kwargs):
                 
-                # Get the endpoint from the function
+                # Get the endpoint from the function and create full URL
                 endpoint = func(self, *args, **kwargs)
+                url = urljoin(self.base_url, endpoint)
                 
-                # Build the full url
-                url = cls._build_endpoint(endpoint)
-
-                # Based on method, extract data, params and json
-                data = kwargs.get("data")
-                params = kwargs.get("params")
-                json = kwargs.get("json")
-
+                # Separate data and json from endpoint params
+                data = kwargs.pop("data", None)
+                json = kwargs.pop("json", None)
+                
+                # Everything else becomes part of `params`
+                params = {
+                    k: v for k, v in kwargs.items()
+                    if v is not None  # Optional: exclude None values
+                }
                 return self._generic_request_handler(
                     http_method=method,
                     url=url,

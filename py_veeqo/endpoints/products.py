@@ -69,8 +69,7 @@ class Products(PyVeeqo):
         return self._ENDPOINT_KEY + f"/{product_id}/product_property_specifics/{property_id}"
 
     @PyVeeqo._endpoint_builder(method="POST")
-    def create_new_product(self, data: Dict = None,
-                           json: Optional[JSONType] = None) -> Result:
+    def create_new_product(self, json: Optional[JSONType] = None) -> Result:
         """Create a new product by passing information in either data or json
         format.
         https://developers.veeqo.com/docs#/reference/products/product-collection/create-a-new-product
@@ -87,8 +86,7 @@ class Products(PyVeeqo):
         return self._ENDPOINT_KEY
 
     @PyVeeqo._endpoint_builder(method="POST")
-    def create_new_property(self, data: Dict = None,
-                            json: Optional[JSONType] = None) -> Result:
+    def create_new_property(self, json: Optional[JSONType] = None) -> Result:
         """Create a new property by passing information in either data or json
         format.
         https://developers.veeqo.com/docs#/reference/products/create-properties/create-a-new-property

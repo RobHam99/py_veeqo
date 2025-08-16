@@ -22,7 +22,7 @@ class Customers(PyVeeqo):
         return self._ENDPOINT_KEY
 
     @PyVeeqo._endpoint_builder(method="POST")
-    def create_a_customer(self, data: Dict = None, 
+    def create_new_customer(self, data: Dict = None, 
                           json: Optional[JSONType] = None) -> Result:
         """Create a new customer.
         https://developers.veeqo.com/docs#/reference/customers/customer-collection/create-a-customer

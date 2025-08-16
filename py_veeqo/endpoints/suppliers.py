@@ -31,8 +31,7 @@ class Suppliers(PyVeeqo):
         """
         return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("suppliers", "{supplier_id}"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def view_supplier_detail(self, supplier_id: int) -> Result:
         """Get details of a specific supplier.
         https://developers.veeqo.com/docs#/reference/suppliers/supplier/view-a-supplier-detail
@@ -40,7 +39,7 @@ class Suppliers(PyVeeqo):
         Args:
             supplier_id (int): Supplier id.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{supplier_id}"
 
     @PyVeeqo._endpoint_builder(method="PUT")
     def update_supplier_detail(self, supplier_id: int, 
