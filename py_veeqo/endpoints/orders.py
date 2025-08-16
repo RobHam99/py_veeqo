@@ -174,3 +174,19 @@ class Orders(PyVeeqo):
             Result: Result object containing status code, message and data.
         """
         return self._ENDPOINT_KEY + f"/{order_id}/allocations/{allocation_id}"
+
+
+    @PyVeeqo._endpoint_builder(method="PUT")
+    def update_allocation_package(self, allocation_id: int,  data: Dict = None,
+                         json: Optional[JSONType] = None) -> Result:
+        """create a package for a specific sales-order allocation, specified by the unique Veeqo allocation_id.
+        https://developers.veeqo.com/api/operations/update-allocation-package/
+
+        Args:
+            allocation_id (int): Veeqo unique allocation identifier.
+            allocation_package: obj
+
+        Returns:
+            Result: Result object containing status code, message and data of allocation_package details.
+        """
+        return self._ENDPOINT_KEY + f"/allocations/{allocation_id}/allocation_package"
