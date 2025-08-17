@@ -9,7 +9,7 @@ class DeliveryMethods(PyVeeqo):
     """
     _ENDPOINT_KEY = "delivery_methods"
 
-    @PyVeeqo._endpoint_builder(method="GET", path_structure=("delivery_methods",))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_all_delivery_methods(self, page_size: int = 12, page: int = 1) -> Result:
         """Get a list of all delivery methods.
         https://developers.veeqo.com/docs#/reference/stores/store/list-all-delivery-methods
@@ -18,10 +18,9 @@ class DeliveryMethods(PyVeeqo):
             page_size (int, optional): Number of items per page. Defaults to 12.
             page (int, optional): Page number. Defaults to 1.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("delivery_methods",))
+    @PyVeeqo._endpoint_builder(method="POST")
     def create_a_delivery_method(self, data: Dict = None, json: Optional[JSONType] = None) -> Result:
         """Create a new delivery method.
         https://developers.veeqo.com/docs#/reference/delivery-methods/delivery-methods-collection/create-a-delivery-method
@@ -30,10 +29,9 @@ class DeliveryMethods(PyVeeqo):
             data (Dict, optional): Data to be sent in the request. Defaults to None.
             json (Optional[JSONType], optional): JSON data to be sent in the request. Defaults to None.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("delivery_methods", "{delivery_method_id}"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def view_delivery_method_detail(self, delivery_method_id: int) -> Result:
         """Get details of a specific delivery method.
         https://developers.veeqo.com/docs#/reference/delivery-methods/delivery-method/view-delivery-method-detail
@@ -41,10 +39,9 @@ class DeliveryMethods(PyVeeqo):
         Args:
             delivery_method_id (int): Delivery method id.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{delivery_method_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="PUT", path_structure=("delivery_methods", "{delivery_method_id}"))
+    @PyVeeqo._endpoint_builder(method="PUT")
     def update_delivery_method_detail(self, delivery_method_id: int, data: Dict = None) -> Result:
         """Update details of a specific delivery method.
         https://developers.veeqo.com/docs#/reference/delivery-methods/delivery-method/update-delivery-method-detail
@@ -53,10 +50,9 @@ class DeliveryMethods(PyVeeqo):
             delivery_method_id (int): Delivery method id.
             data (Dict, optional): Data to be sent in the request. Defaults to None.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{delivery_method_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="DELETE", path_structure=("delivery_methods", "{delivery_method_id}"))
+    @PyVeeqo._endpoint_builder(method="DELETE")
     def delete_delivery_method(self, delivery_method_id: int) -> Result:
         """Delete a specific delivery method.
         https://developers.veeqo.com/docs#/reference/delivery-methods/delivery-method/delete
@@ -64,4 +60,4 @@ class DeliveryMethods(PyVeeqo):
         Args:
             delivery_method_id (int): Delivery method id.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{delivery_method_id}"

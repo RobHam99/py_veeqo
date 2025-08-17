@@ -9,7 +9,7 @@ class Customers(PyVeeqo):
     """
     _ENDPOINT_KEY = "customers"
 
-    @PyVeeqo._endpoint_builder(method="GET", path_structure=("customers",))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_all_customers(self, page_size: int = 12, page: int = 1, query: str = None) -> Result:
         """Get a list of all customers.
         https://developers.veeqo.com/docs#/reference/customers/customer-collection/list-all-customers
@@ -19,11 +19,10 @@ class Customers(PyVeeqo):
             page (int, optional): Page number. Defaults to 1.
             query (str, optional): Search query. Defaults to None
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("customers",))
-    def create_a_customer(self, data: Dict = None, 
+    @PyVeeqo._endpoint_builder(method="POST")
+    def create_new_customer(self, data: Dict = None, 
                           json: Optional[JSONType] = None) -> Result:
         """Create a new customer.
         https://developers.veeqo.com/docs#/reference/customers/customer-collection/create-a-customer
@@ -32,10 +31,9 @@ class Customers(PyVeeqo):
             data (Dict, optional): customer data. Defaults to None.
             json (Optional[JSONType], optional): customer data in json format. Defaults to None.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("customers", "{customer_id}"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def view_customer_detail(self, customer_id: int) -> Result:
         """Get details of a specific customer.
         https://developers.veeqo.com/docs#/reference/customers/customer/view-customer-detail
@@ -43,10 +41,9 @@ class Customers(PyVeeqo):
         Args:
             customer_id (int): customer id.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{customer_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="PUT", path_structure=("customers", "{customer_id}"))
+    @PyVeeqo._endpoint_builder(method="PUT")
     def update_customer_detail(self, customer_id: int, 
                                data: Dict = None) -> Result:
         """Update details of a specific customer.
@@ -56,4 +53,4 @@ class Customers(PyVeeqo):
             customer_id (int): customer id.
             data (Dict, optional): customer data. Defaults to None.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{customer_id}"

@@ -9,7 +9,7 @@ class BulkTagging(PyVeeqo):
     """
     _ENDPOINT_KEY = "bulk_tagging"
 
-    @PyVeeqo._endpoint_builder(method="POST", path_structure=("bulk_tagging",))
+    @PyVeeqo._endpoint_builder(method="POST")
     def tag_orders(self, data: Dict = None,
                    json: Optional[JSONType] = None) -> Result:
         """Bulk tag orders.
@@ -20,9 +20,9 @@ class BulkTagging(PyVeeqo):
             json (Optional[JSONType]): The json data to be sent to the
             endpoint.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(method="POST", path_structure=("bulk_tagging",))
+    @PyVeeqo._endpoint_builder(method="POST")
     def tag_products(self, data: Dict = None, json: Optional[JSONType] = None) -> Result:
         """Bulk tag products.
         https://developers.veeqo.com/docs#/reference/bulk-tagging/bulk-tagging/tagging-products
@@ -32,9 +32,9 @@ class BulkTagging(PyVeeqo):
             json (Optional[JSONType]): The json data to be sent to the
             endpoint.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(method="DELETE", path_structure=("bulk_tagging",))
+    @PyVeeqo._endpoint_builder(method="DELETE")
     def untagging_orders(self, data: Dict = None) -> Result:
         """Bulk untagging orders.
         https://developers.veeqo.com/docs#/reference/bulk-tagging/bulk-tagging/untagging-orders
@@ -42,4 +42,4 @@ class BulkTagging(PyVeeqo):
         Args:
             data (Dict): The data to be sent to the endpoint.
         """
-        pass
+        return self._ENDPOINT_KEY

@@ -9,7 +9,7 @@ class Products(PyVeeqo):
     """
     _ENDPOINT_KEY = "products"
 
-    @PyVeeqo._endpoint_builder(method="GET", path_structure=("products",))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_all_products(
         self,
         since_id: int = None,
@@ -37,10 +37,9 @@ class Products(PyVeeqo):
             page (int, optional): Page number to return. Defaults to 1.
             query (str, optional): Search query to filter products. Defaults to None.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("products", "{product_id}"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_product_detail(self, product_id: int) -> Result:
         """Get product details for a specified product id.
         https://developers.veeqo.com/docs#/reference/products/product/view-product-detail
@@ -52,10 +51,9 @@ class Products(PyVeeqo):
         Returns:
             Dict: All information on the specified product.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{product_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="GET", path_structure=("products", "{product_id}", "product_property_specifics"))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_product_properties(self, product_id: int,
                                property_id: str) -> Result:
         """Get information about a specific property for a specific product.
@@ -68,12 +66,10 @@ class Products(PyVeeqo):
         Returns:
             Dict: All information on the property for that product.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{product_id}/product_property_specifics/{property_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("products",))
-    def create_new_product(self, data: Dict = None,
-                           json: Optional[JSONType] = None) -> Result:
+    @PyVeeqo._endpoint_builder(method="POST")
+    def create_new_product(self, json: Optional[JSONType] = None) -> Result:
         """Create a new product by passing information in either data or json
         format.
         https://developers.veeqo.com/docs#/reference/products/product-collection/create-a-new-product
@@ -87,12 +83,10 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY
 
-    @PyVeeqo._endpoint_builder(
-        method="POST", path_structure=("product_properties",))
-    def create_new_property(self, data: Dict = None,
-                            json: Optional[JSONType] = None) -> Result:
+    @PyVeeqo._endpoint_builder(method="POST")
+    def create_new_property(self, json: Optional[JSONType] = None) -> Result:
         """Create a new property by passing information in either data or json
         format.
         https://developers.veeqo.com/docs#/reference/products/create-properties/create-a-new-property
@@ -106,10 +100,9 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return "product_properties"
 
-    @PyVeeqo._endpoint_builder(
-        method="PUT", path_structure=("products", "{product_id}"))
+    @PyVeeqo._endpoint_builder(method="PUT")
     def update_product_detail(self, product_id: int,
                               data: Dict = None) -> Result:
         """Update the details of a product, specified by it's unique
@@ -124,10 +117,9 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{product_id}"
      
-    @PyVeeqo._endpoint_builder(
-        method="PUT", path_structure=("products", "{product_id}", "properties", "{property_id}"))
+    @PyVeeqo._endpoint_builder(method="PUT")
     def update_property_detail(self, product_id: int, property_id: int,
                                data: Dict = None) -> Result:
         """Update the details of a product, specified by it's unique
@@ -143,10 +135,9 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{product_id}/properties/{property_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="DELETE", path_structure=("products", "{product_id}"))
+    @PyVeeqo._endpoint_builder(method="DELETE")
     def delete_product(self, product_id: int) -> Result:
         """Delete a product by specifying it's unique Veeqo identifier.
         https://developers.veeqo.com/docs#/reference/products/product/delete
@@ -157,10 +148,9 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{product_id}"
 
-    @PyVeeqo._endpoint_builder(
-        method="DELETE", path_structure=("products", "{product_id}", "product_property_specifics", "{property_id}"))
+    @PyVeeqo._endpoint_builder(method="DELETE")
     def delete_product_property(self, product_id: int,
                                 property_id: int) -> Result:
         """Delete a product by specifying it's unique Veeqo identifier.
@@ -172,4 +162,4 @@ class Products(PyVeeqo):
         Returns:
             Result: Result object containing status code, message and data.
         """
-        pass
+        return self._ENDPOINT_KEY + f"/{product_id}/product_property_specifics/{property_id}"

@@ -8,6 +8,7 @@ import requests.packages
 from py_veeqo.exceptions import PyVeeqoException
 from py_veeqo.models import Result
 from py_veeqo.types import JSONType
+from urllib.parse import urljoin
 
 
 class PyVeeqo:
@@ -35,41 +36,14 @@ class PyVeeqo:
                             'https://help.veeqo.com/en/articles/3826041-api-key')
         self._api_key = api_key
         self._ssl_verify = True
-
+        
     @classmethod
-    def _build_endpoint(cls, path_structure: List[str], path_params: Dict[str, str]) -> str:
-        """Builds the endpoint url.
-
-        Args:
-            path_structure: structure of the endpoint path.
-            **path_params (Dict): path parameters.
-
-        Returns:
-            str: url endpoint.
-        """
-        endpoint = []
-        for part in path_structure:
-            if part.startswith("{") and part.endswith("}"):
-                key = part[1:-1]
-                if key in path_params:
-                    endpoint.append(str(path_params[key]).strip("/"))
-                else:
-                    raise ValueError(f"Missing path parameter: {key}")
-            elif part.startswith("{") or part.endswith("}"):
-                raise ValueError("Path parameter not formatted correctly")
-            else:
-                endpoint.append(part.strip("/"))
-
-        return cls.base_url + "/".join(endpoint)
-
-    @classmethod
-    def _endpoint_builder(cls, method: str, path_structure: List[str]) -> Callable:
+    def _endpoint_builder(cls, method: str) -> Callable:
         """Decorator to dynamically build api endpoints and call the 
         main request handler.
 
         Args:
             method (str): _description_
-            path_structure (List[str]): _description_
 
         Returns:
             Callable: _description_
@@ -79,17 +53,20 @@ class PyVeeqo:
 
             @wraps(func)
             def wrapper(self, *args, **kwargs):
-
-                # Get the path parameters from the function arguments
-                path_params = {part[1:-1]: kwargs[part[1:-1]] for part in path_structure if part.startswith('{') and part.endswith('}')}
-
-                # Construct endpoint url    
-                url = cls._build_endpoint(path_structure, path_params)
-
-                data = kwargs.get("data")
-                params = kwargs.get("params")
-                json = kwargs.get("json")
-
+                
+                # Get the endpoint from the function and create full URL
+                endpoint = func(self, *args, **kwargs)
+                url = urljoin(self.base_url, endpoint)
+                
+                # Separate data and json from endpoint params
+                data = kwargs.pop("data", None)
+                json = kwargs.pop("json", None)
+                
+                # Everything else becomes part of `params`
+                params = {
+                    k: v for k, v in kwargs.items()
+                    if v is not None  # Optional: exclude None values
+                }
                 return self._generic_request_handler(
                     http_method=method,
                     url=url,

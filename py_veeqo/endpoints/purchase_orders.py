@@ -7,7 +7,7 @@ class PurchaseOrders(PyVeeqo):
     """
     _ENDPOINT_KEY = "purchase_orders"
 
-    @PyVeeqo._endpoint_builder(method="GET", path_structure=("purchase_orders",))
+    @PyVeeqo._endpoint_builder(method="GET")
     def get_all_purchase_orders(
         self,
         page_size: int = 12,
@@ -22,4 +22,4 @@ class PurchaseOrders(PyVeeqo):
             page (int, optional): The page number to return. Defaults to 1.
             show_complete (bool, optional): Whether to show completed purchase orders. Defaults to False.
         """
-        pass
+        return self._ENDPOINT_KEY
