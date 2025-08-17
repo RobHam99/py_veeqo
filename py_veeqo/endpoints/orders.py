@@ -175,7 +175,6 @@ class Orders(PyVeeqo):
         """
         return self._ENDPOINT_KEY + f"/{order_id}/allocations/{allocation_id}"
 
-
     @PyVeeqo._endpoint_builder(method="PUT")
     def update_allocation_package(self, allocation_id: int,  data: Dict = None,
                          json: Optional[JSONType] = None) -> Result:
